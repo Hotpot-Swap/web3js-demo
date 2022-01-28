@@ -1,0 +1,22 @@
+{
+  "name": "web3js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "test_eth.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ethereumjs/common": "^2.4.0",
+    "@ethereumjs/tx": "^3.3.0",
+    "axios": "^0.21.4",
+    "bignumber.js": "^9.0.1",
+    "ethereumjs-tx": "^2.1.2",
+    "ethers": "^5.5.3",
+    "keccak": "^3.0.2",
+    "mathjs": "^9.4.4",
+    "web3": "^1.5.2"
+  }
+}
