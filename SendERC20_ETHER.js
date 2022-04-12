@@ -8,7 +8,6 @@ const Math = require('mathjs');
 const sendERC20 = async (fromAddress, toAddress, token, amount, gasLimit) => {
   try {
     const Erc20contract = new web3.eth.Contract(ABI, token);
-    console.log('Erc20contract: ', Erc20contract)
     const decimalToken = await Erc20contract.methods.decimals().call();
     var sendAmount = new BigNumber(amount).multipliedBy(Math.pow(10, decimalToken));
     const data = Erc20contract.methods.transfer(toAddress, sendAmount.toFixed());
@@ -28,33 +27,33 @@ const sendERC20 = async (fromAddress, toAddress, token, amount, gasLimit) => {
     // 3. sign transaction
     const tx = new Tx(approveTxParams, { chain: 'rinkeby' });
 
-    const privateKey = Buffer.from('ea401740910d7b3d12930fb9065e0f5fbae47948acefa3b6310e51720dda6306', 'hex'); // private key cua vi gui
+    const privateKey = Buffer.from('440331baae95b9bd06329558f61c05cf28f64b50c76e3ba5ae6c0f6179b1db52', 'hex'); // private key cua vi gui
     tx.sign(privateKey);
     var serializedTx = tx.serialize();
-    console.log('sign: ', serializedTx.toString('hex'));
+    //console.log('sign: ', serializedTx.toString('hex'));
 
-    // 4. send signed transaction
-    // await web3.eth
-    //   .sendSignedTransaction('0x' + serializedTx.toString('hex'), function (err, hash) {
-    //     if (!err) {
-    //       //console.log(hash); // "0x7f9fade1c0d57a7af66ab4ead79fade1c0d57a7af66ab4ead7c2c2eb7b11a91385"
-    //     } else {
-    //      // console.log(err);
-    //     }
-    //   })
-    //   .once('confirmation', () => {
-    //     console.log('confirmation')
-    //   })
-    //   .once('transactionHash', e => {
-    //     console.log('transactionHash')
-    //   });
+    //4. send signed transaction
+    await web3.eth
+      .sendSignedTransaction('0x' + serializedTx.toString('hex'), function (err, hash) {
+        if (!err) {
+          console.log(hash); // "0x7f9fade1c0d57a7af66ab4ead79fade1c0d57a7af66ab4ead7c2c2eb7b11a91385"
+        } else {
+          console.log(err);
+        }
+      })
+      .once('confirmation', () => {
+        console.log('confirmation')
+      })
+      .once('transactionHash', e => {
+        console.log('transactionHash')
+      });
   } catch (error) {
     console.log(error);
   }
 }
 sendERC20(
-  '0xdB8E6b10d88370B7E959718d3d2f78f73Fe38784',
-  '0xEDd3d787C7abecDE82c066b0C99b4d5B3aA69DA4',
-  '0x9fd715f62abcb402682889fb958fa88a9fd1cf16',
-  0.00001,
+  '0x400eE0C820144c8Bb559AcE1ad75e5C13e750334',
+  '0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa',
+  '0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa',
+  12,
   21000);
